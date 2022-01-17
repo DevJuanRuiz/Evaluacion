@@ -1,0 +1,77 @@
+<form class="example-container" [formGroup]="form" #frmSignoVital="ngForm" (ngSubmit)="guardar()">
+
+<div class="titulo">Asignar roles a usuario</div>
+<div class="contenedor" >
+    <div class="contenido">
+        <mat-form-field class="example-full-width" >
+            <input matInput  placeholder="Usuario" formControlName="username" readonly>
+        </mat-form-field>
+        <h2 class="subtitulo">Roles Actuales</h2>
+        <table mat-table [dataSource]="dataSourceRolActual" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="idRol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.idRol}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRolActual"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsRolActual"></tr>
+        
+        </table>
+    </div>
+    <div class="contenido" >
+        <div class="agregarRol">
+            <mat-form-field>
+                <mat-select placeholder="Selecciona rol"  [(ngModel)]="rolSeleccionado"  [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let e of (roles$ | async)" [value]="e">
+                        {{e.nombre}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="button"  (click)="agregarRol()">Agregar Rol</button>    
+        </div>
+        <h2 class="subtitulo">Nuevos Roles</h2>
+        <table mat-table [dataSource]="dataSourceRolNuevo" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="idRol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.idRol}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef>  </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-button color="primary" type="button" (click)="eliminarRol(element.idRol)">
+                        <mat-icon>delete</mat-icon> Eliminar
+                    </button>
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRolNuevo"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsRolNuevo;"></tr>
+        
+        </table>
+
+    </div>
+</div>
+<div class="botones">   
+    <button class="btnCancelar" mat-raised-button type="button" color="accent" routerLink='/pages/usuario-rol'>
+        <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+
+    <button class="btnAceptar" mat-raised-button type="submit" color="primary">
+        <mat-icon>check_circle</mat-icon> Aceptar
+    </button>
+    
+</div> 
+</form>
