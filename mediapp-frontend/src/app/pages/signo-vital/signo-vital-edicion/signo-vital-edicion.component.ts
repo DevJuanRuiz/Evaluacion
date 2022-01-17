@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { map, Observable, switchMap } from 'rxjs';
 import { Paciente } from 'src/app/_model/paciente';
 import { SignoVital } from 'src/app/_model/signovital';
@@ -102,7 +103,7 @@ export class SignoVitalEdicionComponent implements OnInit {
     let pacientesel = this.form.value['paciente'];
     
     signoVital.idSignoVital = this.form.value['id'];
-    signoVital.fecha = this.form.value['fecha'];
+    signoVital.fecha = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');;
     //signoVital.idPaciente = pacientesel.idPaciente;
     signoVital.paciente = pacientesel;
     signoVital.temperatura = this.form.value['temperatura'];

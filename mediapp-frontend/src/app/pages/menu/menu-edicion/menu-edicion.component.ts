@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Menu } from 'src/app/_model/menu';
+import { Rol } from 'src/app/_model/rol';
 import { MenuService } from 'src/app/_service/menu.service';
 
 @Component({
@@ -62,7 +63,15 @@ export class MenuEdicionComponent implements OnInit {
     menu.nombre = this.form.value['nombre'];
     menu.icono = this.form.value['icono'];
     menu.url = this.form.value['url'];
-    menu.roles = this.form.value['roles']
+    if (this.form.value['roles']) {
+      menu.roles = this.form.value['roles'];
+    }else
+    {
+      menu.roles = [];
+    }
+    
+    
+    console.log(menu);
     //signoVital.idPaciente = pacientesel.idPaciente;    
     if (this.edicion) {
       //MODIFICAR
